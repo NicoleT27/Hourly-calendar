@@ -1,36 +1,42 @@
 var today = dayjs();
-var currentTime = $("").text(today.format("h:mm a"));
+
+var currentTime = today.format("hh:mm a");
 console.log(currentTime);
+
 var currentDay = $("#currentDay").text(
-  today.format("dddd, MMMM D YYYY h:mm a")
+  today.format(" dddd MMMM D YYYY" + " " + "hh:mm a")
 );
 
 workDaySchedule = [
-  { time: "9 AM", event: "" },
-  { time: "10 AM", event: "" },
-  { time: "11 AM", event: "" },
-  { time: "12 PM", event: "" },
-  { time: "1 PM", event: "" },
-  { time: "2 PM", event: "" },
-  { time: "3 PM", event: "" },
-  { time: "4 PM", event: "" },
-  { time: "5 PM", event: "" },
+  { time: "9 am", event: "" },
+  { time: "10 am ", event: "" },
+  { time: "11 am", event: "" },
+  { time: "12 pm", event: "" },
+  { time: "1 pm", event: "" },
+  { time: "2 pm", event: "" },
+  { time: "3 pm", event: "" },
+  { time: "4 pm", event: "" },
+  { time: "5 pm", event: "" },
 ];
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 
-$(function currentTenses() {
-  if (currentTime < workDaySchedule.time) {
-    return "future";
-  } else if (currentTime > workDaySchedule.time) {
-    return "past";
+for (let i = 0; i < workDaySchedule.length; i++) {
+  var timeBlockTime = workDaySchedule[i];
+  // timeBlockTime =
+  if (currentTime === timeBlockTime) {
+    $("#hour").addClass("row time-block times present");
+  } else if (currentTime < timeBlockTime) {
+    $("#hour").addClass("row time-block times past");
   } else {
-    return "present";
+    $("#hour").addClass("row time-block times future");
   }
-});
+};
 
+ 
+ 
 // TODO: Add a listener for click events on the save button. This code should
 // use the id in the containing time-block as a key to save the user input in
 // local storage. HINT: What does `this` reference in the click listener
