@@ -1,3 +1,5 @@
+// Establishing the Day.js format for the month/date/year as well as time to then equal it to the variables currentTime,currentDay and today.
+// Making it easier to utilize later in code.
 var today = dayjs();
 
 var currentTime = today.format("H");
@@ -5,7 +7,16 @@ var currentTime = today.format("H");
 var currentDay = $("#currentDay").text(
   today.format(" dddd MMMM D YYYY" + " " + "hh:mm a")
 );
+// We wrap the entire js file in a document.ready format to ensure that the page has loaded all of the content.
+// prior to envoking the functions inside.
 $(document).ready(function () {
+  // timeColor function is then created focusing on the div with the time-block class.
+  // Then the ID is found and parsed from a string to a integer.
+  // Now that hour is established as a variable holding the hour as a integer
+  // it is then compared to the currentTime hour
+  // to check to see if it either past, during or after the current time.
+  //  Using the toggleClass the function can switch between the apporpriate class as they match the criteria.
+
   function timeColor() {
     $(".time-block").each(function () {
       var hour = parseInt(this.id);
@@ -14,30 +25,20 @@ $(document).ready(function () {
       $(this).toggleClass("future", hour > currentTime);
     });
   }
-
+  // Function is called to be able to start the asynchronous execution of code
   timeColor();
+  // Lastly the function below focuses on the saveBtn.
 
   $(".saveBtn").on("click", function () {
+    // The event variable will look at the parent divs children (siblings) and find whichever is holding the class of description.
+    // It then will store the value of the description class.
+    // Meaning whatever the user types will be now assigned as an event.
     var event = $(this).siblings(".description").val();
+    // The hour variable is looking through the parent div that holds the class of time-block and then
+    // focusing specifically on its ID which holds the hours displayed for the work day.
     var hour = $(this).parent(".time-block").attr("id");
+    // The localStorage is then going to get the key to hour and the value to event, thus saving the
+    // hour that the user typed something in as well as the content which is the event.
     localStorage.setItem(hour, event);
   });
 });
-
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
-//
-//  make a loop to select each item with the a common class using jquery, you can take that id and compare the number to the current hour
-
-// TODO: Add a listener for click events on the save button. This code should
-// use the id in the containing time-block as a key to save the user input in
-// local storage. HINT: What does `this` reference in the click listener
-// function? How can DOM traversal be used to get the "hour-x" id of the
-// time-block containing the button that was clicked? How might the id be
-// useful when saving the description in local storage?
-
-// TODO: Add code to get any user input that was saved in localStorage and set
-// the values of the corresponding textarea elements. HINT: How can the id
-// attribute of each time-block be used to do this?
