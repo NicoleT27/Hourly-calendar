@@ -5,24 +5,23 @@ var currentTime = today.format("H");
 var currentDay = $("#currentDay").text(
   today.format(" dddd MMMM D YYYY" + " " + "hh:mm a")
 );
+$(document).ready(function () {
+  function timeColor() {
+    $(".time-block").each(function () {
+      var hour = parseInt(this.id);
+      $(this).toggleClass("past", hour < currentTime);
+      $(this).toggleClass("present", hour == currentTime);
+      $(this).toggleClass("future", hour > currentTime);
+    });
+  }
 
-function timeColor() {
-  $(".time-block").each(function () {
-    var hour = parseInt(this.id);
-    $(this).toggleClass("past", hour < currentTime);
-    $(this).toggleClass("present", hour == currentTime);
-    $(this).toggleClass("future", hour > currentTime);
- });
-}
+  timeColor();
 
-timeColor();
-
-
-
-$(".saveBtn").on("click", function () {
-  var event = $(this).closest(".description").val();
-  var hour = $(this).closest(".time-block").attr("id");
-  localStorage.setItem(hour, event);
+  $(".saveBtn").on("click", function () {
+    var event = $(this).siblings(".description").val();
+    var hour = $(this).parent(".time-block").attr("id");
+    localStorage.setItem(hour, event);
+  });
 });
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -42,4 +41,3 @@ $(".saveBtn").on("click", function () {
 // TODO: Add code to get any user input that was saved in localStorage and set
 // the values of the corresponding textarea elements. HINT: How can the id
 // attribute of each time-block be used to do this?
-
