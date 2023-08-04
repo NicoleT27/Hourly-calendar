@@ -41,3 +41,12 @@ $(document).ready(function () {
     localStorage.setItem(hour, event);
   });
 });
+// The following executes a for each function where it will restate the hour and have the local storage call back that info
+// Then if there is any saved data in local storage already it will re display the data inside of the scription class
+$(".description").each(function () {
+  var hour = $(this).parent(".time-block").attr("id");
+  var savedData = localStorage.getItem(hour);
+  if (savedData) {
+    $(this).val(savedData);
+  }
+});
