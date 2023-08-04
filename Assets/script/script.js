@@ -16,7 +16,6 @@ $(document).ready(function () {
   // it is then compared to the currentTime hour
   // to check to see if it either past, during or after the current time.
   //  Using the toggleClass the function can switch between the apporpriate class as they match the criteria.
-
   function timeColor() {
     $(".time-block").each(function () {
       var hour = parseInt(this.id);
